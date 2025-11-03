@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Practice</title>
+    <!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    <script src="jquery-3.7.1.min.js" ></script>
+
+    <script>
+      $(document).ready(function () {
+          function mymsg()
+          {
+              window.alert('Button has been clicked');
+          }
+
+        $('.mybutton').click(mymsg);
+        $('.mybutton1').bind('click', mymsg);
+        $('.mybutton2').on('click', mymsg);
+        $('.mybutton3, .mybutton4').on('click', mymsg);
+       
+        $('div').width('400px');
+        $('div').height('400px');
+        $('.div1, .div2').css('background-color', 'grey').css('float','left').css('margin','10px');
+        $('.div1').on('mouseenter mouseleave click', function (){
+            window.alert('div was either clicked/ the mouse enter it/ mouse left it');
+        });
+        $ ('.div2').on('mouseenter mouseleave click', (event)=> {
+            if(event.type === 'mouseenter'){
+                $('.div2 span').text('you have entered div');
+            }
+            if(event.type === 'mouseleave'){
+                $('.div2 span').text('you have left div');
+            }
+            if(event.type === 'click'){
+                $('.div2 span').text('you have clicked div');
+            }
+        }
+        );
+        $('a').click((e)=> {
+            e.preventDefault();
+            $('a').css('color', 'red');
+            alert(event.target.nodeName);
+        });
+        function dimen()
+        {
+            $('.div3').html(`Width : ${window.innerWidth}, Height: ${window.innerHeight}`);
+        }
+            dimen();
+            $(window).on('resize',dimen);
+        $('input').focusin(() => {
+        $('input').css("background-color", "gray");
+    });
+
+    $('input').focusout(() => {
+        $('input').css("background-color", "white");
+    });
+
+    $('.submit').on('click', (a) => {
+
+        if($('#name').val() === '' || $('#mail').val() === '' ){
+            window.alert('Name and email are required');
+            a.preventDefault();
+        }
+        if($('#name').val() ==='')
+        {
+            $('#name').css('border', '1px solid red');
+        }
+        else
+        {
+            $('#name').css('border', '1px solid green');  
+        }
+        if($('#mail').val() ==='')
+        {
+            $('#mail').css('border', '1px solid red');
+        } else
+        {
+            $('#mail').css('border', '1px solid green');   
+        }
+    })
+      }); 
+    </script>
+</head>
+
+<body>
+    <form>
+        <button class= 'mybutton'> Button 1 </button>
+        <button class= 'mybutton1'> Button 2 </button>
+        <button class= 'mybutton2'> Button 3 </button>
+        <button class= 'mybutton3'> Button 4 </button>
+        <button class= 'mybutton4'> Button 5 </button> <br><br>
+         Name:
+         <input type="text" id="name"><br>
+        Email:
+        <input type="text" id="mail"> <br><br>
+        <button class='submit'>submit</button>
+    </form>
+    <div class="div1">
+        Div 1
+    </div>
+    <div class="div2">
+        Div 2
+        <span></span>
+    </div>
+    <a href="modulemedia.com"> Click this link</a>
+    <div class="div3"></div>
+</body>
+</html>
